@@ -1,0 +1,70 @@
+
+query GetAllWatches {
+  getAllWatches {
+    id
+    brand
+    type
+    image
+    price
+    onSale
+    discountPercent
+    saleEndsAt
+    quantity
+  }
+}
+
+query GetWatch($id: ID!) {
+  getWatch(id: $id) {
+    id
+    brand
+    type
+    image
+    price
+    onSale
+    discountPercent
+    saleEndsAt
+    quantity
+  }
+}
+
+mutation CreateWatch($input: CreateWatchInput!) {
+  createWatch(input: $input) {
+    id
+    brand
+    type
+    image
+    price
+    onSale
+    discountPercent
+    saleEndsAt
+    quantity
+  }
+}
+
+mutation UpdateWatch($input: UpdateWatchInput!) {
+  updateWatch(input: $input) {
+    id
+    brand
+    type
+    image
+    price
+    onSale
+    discountPercent
+    saleEndsAt
+    quantity
+  }
+}
+
+mutation DeleteWatch($id: ID!) {
+  deleteWatch(id: $id) {
+    id
+  }
+}
+query GetAllNotes {
+  getAllNotes {
+    id
+    title
+    completed
+    createdAt
+  }
+}

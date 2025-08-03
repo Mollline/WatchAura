@@ -1,0 +1,62 @@
+# 🚀 ORDERS
+
+query GetAllOrders {
+  getAllOrders {
+    id
+    deliveryPlace
+    phoneNumber
+    totalPrice
+    createdAt
+    items {
+      quantity
+      watch
+    }
+  }
+}
+
+query GetOrderById($id: ID!) {
+  getOrderById(id: $id) {
+    id
+    deliveryPlace
+    phoneNumber
+    totalPrice
+    createdAt
+    items {
+      quantity
+      watch
+    }
+  }
+}
+
+mutation CreateOrder($input: CreateOrderInput!) {
+  createOrder(input: $input) {
+    id
+    deliveryPlace
+    phoneNumber
+    totalPrice
+    createdAt
+    items {
+      quantity
+      watch
+    }
+  }
+}
+
+mutation EditOrder($id: ID!, $input: EditOrderInput!) {
+  editOrder(id: $id, input: $input) {
+    id
+    deliveryPlace
+    phoneNumber
+    totalPrice
+    items {
+      quantity
+      watch
+    }
+  }
+}
+
+mutation DeleteOrder($id: ID!) {
+  deleteOrder(id: $id) {
+    id
+  }
+}

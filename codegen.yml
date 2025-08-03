@@ -1,0 +1,16 @@
+overwrite: true
+schema: "https://watch-aura-backend.vercel.app/api/graphql"
+documents: "src/graphql/**/*.graphql"
+generates:
+  ./src/generated/index.ts:
+    config:
+      reactApolloVersion: 3
+      withHOC: true
+      withHooks: true
+    plugins:
+      - add:
+          content: "// @ts-nocheck"
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+
