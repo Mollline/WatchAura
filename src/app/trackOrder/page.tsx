@@ -95,7 +95,7 @@ export default function TrackOrderPage() {
         <div className="flex flex-col lg:flex-row lg:items-start gap-6 mb-12">
           <div className="flex-1 space-y-4">
             <p className="text-md text-gray-800">
-                утасны дугаар:
+              Утасны дугаар:
             </p>
             <input
               type="text"
@@ -105,18 +105,21 @@ export default function TrackOrderPage() {
               inputMode="tel"
               maxLength={8}
               className="w-full px-5 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-black focus:outline-none text-lg"
-              style={{color:'black'}}
+              style={{ color: 'black' }}
             />
+            <p className="text-sm text-gray-600">
+              Та хайх товчийг дарснаар захиалгуудаа харах болно.
+            </p>
             <button
               onClick={() => handleSearch()}
-              className={`bg-black text-white w-full py-3 rounded-xl font-medium hover:bg-gray-800 transition ${
-                searchPhone.length < 4 ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={searchPhone.length < 4}
+              className={`bg-black text-white w-full py-3 rounded-xl font-medium hover:bg-gray-800 transition ${searchPhone.length < 8 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              disabled={searchPhone.length < 8}
             >
               Хайх
             </button>
           </div>
+
 
           <div className="bg-gray-100 p-6 rounded-xl border text-gray-800 text-base space-y-2 w-full lg:w-[400px]">
             <p className="font-semibold">💳 Төлбөрийн мэдээлэл:</p>

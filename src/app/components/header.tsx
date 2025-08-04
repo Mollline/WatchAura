@@ -127,7 +127,7 @@ export const Header = ({ basket, setBasket }: ProductProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-4 flex justify-between items-center border-b">
-          <h2 className="text-lg font-semibold" style={{color:'black'}}>Таны сагс</h2>
+          <h2 className="text-lg font-semibold" style={{ color: 'black' }}>Таны сагс</h2>
           <button
             onClick={() => setIsSidebarOpen(false)}
             className="text-gray-600 hover:text-indigo-600"
@@ -184,11 +184,12 @@ export const Header = ({ basket, setBasket }: ProductProps) => {
                   <div className="flex flex-col items-end gap-2">
                     <button
                       onClick={() => handleRemoveFromBasket(id)}
-                      className="text-red-500 hover:text-red-700 text-sm font-medium"
+                      className="px-3 py-1.5 rounded-md text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 hover:text-red-700 transition-all duration-200 shadow-sm"
                     >
-                      Устгах
+                       Устгах
                     </button>
                   </div>
+
                 </div>
               ))}
             </div>
@@ -228,7 +229,7 @@ export const Header = ({ basket, setBasket }: ProductProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-4 flex justify-between items-center border-b">
-          <h2 className="text-lg font-semibold"style={{color:'black'}}>Меню</h2>
+          <h2 className="text-lg font-semibold" style={{ color: 'black' }}>Меню</h2>
           <button
             onClick={() => setIsMobileNavOpen(false)}
             className="text-gray-600 hover:text-indigo-600"
@@ -275,7 +276,7 @@ export const Header = ({ basket, setBasket }: ProductProps) => {
           </div>
         </div>
       </aside>
-      
+
     </>
   );
 };

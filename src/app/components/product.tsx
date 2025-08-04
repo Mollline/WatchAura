@@ -6,7 +6,11 @@ import { useGetAllWatchesQuery } from "@/generated";
 import { FiShoppingCart } from "react-icons/fi";
 import { useBasket } from "@/context/basletContext";
 
-// ✅ Toast Component
+type ProductProps = {
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+// Toast Component (optional to move to shared file)
 const Toast = ({
   message,
   duration = 1000,
@@ -17,29 +21,20 @@ const Toast = ({
   onClose: () => void;
 }) => {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose();
-    }, duration);
+    const timer = setTimeout(onClose, duration);
     return () => clearTimeout(timer);
   }, [duration, onClose]);
 
   return (
     <div
-      className="fixed top-4 right-4 z-50 bg-green-600 text-white px-6 py-3 shadow-lg backdrop-blur-sm"
-      style={{
-        borderTopRightRadius: 0,
-        borderTopLeftRadius: "0.75rem",
-        borderBottomRightRadius: "0.75rem",
-        borderBottomLeftRadius: "0.75rem",
-        opacity: 0.95,
-      }}
+      className="fixed top-4 right-4 z-50 bg-green-600 text-white px-6 py-3 shadow-lg backdrop-blur-sm rounded-b-2xl rounded-tl-2xl"
+      style={{ opacity: 0.95 }}
     >
       {message}
     </div>
   );
 };
 
-// ✅ Loading Spinner Component
 const LoadingSpinner = () => (
   <div className="flex justify-center items-center py-20">
     <svg
@@ -66,11 +61,10 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// ✅ Main Product Component
-export const Product = () => {
+export const Product = ({ setShowToast }: ProductProps) => {
   const router = useRouter();
   const { data, loading, error } = useGetAllWatchesQuery();
-  const { dispatch, state } = useBasket();
+  const { dispatch } = useBasket();
 
   const [watches, setWatches] = useState<
     {
@@ -89,7 +83,6 @@ export const Product = () => {
 
   const [isPressed, setIsPressed] = useState(false);
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
-  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     if (data?.getAllWatches) {
@@ -217,13 +210,8 @@ export const Product = () => {
           </div>
         );
       })}
-
-      {showToast && (
-        <Toast
-          message="Захиалга амжилттай сагсанд нэмэгдлээ"
-          onClose={() => setShowToast(false)}
-        />
-      )}
     </>
   );
 };
+
+export default Product;

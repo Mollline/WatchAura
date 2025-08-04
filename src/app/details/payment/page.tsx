@@ -207,10 +207,11 @@ export default function PaymentPage() {
                         </button>
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="ml-6 text-sm text-red-600 hover:underline"
+                          className="ml-6 px-3 py-1.5 rounded-md text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 hover:text-red-700 transition-all duration-200 shadow-sm"
                         >
-                          Устгах
+                          🗑️ Устгах
                         </button>
+
                       </div>
                     </div>
                   </li>
