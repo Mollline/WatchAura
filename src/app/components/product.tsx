@@ -180,7 +180,7 @@ export const Product = ({ setShowToast }: ProductProps) => {
                   </div>
                 </div>
               ) : (
-                <p className="text-xl font-bold mb-2 mt-1">
+                <p className="text-xl font-bold mb-2 mt-1 text-gray-600">
                   ₮{Math.floor(e.price - 1)},000
                 </p>
               )}

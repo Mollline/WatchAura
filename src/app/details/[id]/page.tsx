@@ -41,32 +41,6 @@ const Toast = ({
   );
 };
 
-const LoadingSpinner = () => (
-  <div className="flex justify-center items-center py-20">
-    <svg
-      className="animate-spin h-8 w-8 text-gray-600"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      aria-label="Ачааллаж байна"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      ></circle>
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-      ></path>
-    </svg>
-  </div>
-);
-
 export default function Page() {
   const [basket, setBasket] = useState<BasketItem[]>([]);
   const params = useParams<{ id: string }>();
@@ -77,7 +51,6 @@ export default function Page() {
   const { data, loading, error } = useGetAllWatchesQuery();
   const [isNavigating, setIsNavigating] = useState(false);
 
-  // Toast харагдах байдал
   const [showToast, setShowToast] = useState(false);
 
   const [watches, setWatches] = useState<
@@ -107,7 +80,15 @@ export default function Page() {
 
   const filteredWatch = watches.find((watch) => watch.id === productId);
 
-  if (loading) return <LoadingSpinner />;
+  // ✅ Loading overlay with blurred background
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+        <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-300 border-t-transparent" />
+      </div>
+    );
+  }
+
   if (error)
     return (
       <p className="text-center mt-10 text-red-500">
@@ -132,8 +113,6 @@ export default function Page() {
     });
 
     setActiveButtons((prev) => [...prev, watch.id]);
-
-    // Toast харуулах
     setShowToast(true);
 
     setTimeout(() => {
@@ -207,18 +186,22 @@ export default function Page() {
                   </div>
                 </div>
               ) : (
-                <p className="text-xl font-bold mb-2">
+                <p className="text-xl font-bold mb-2 text-gray-600">
                   ₮{Math.floor(price - 1)},000
                 </p>
               )}
-
-              {saleEndDate && (
-                <div>
-                  <p className="text-sm text-gray-500 mb-4">
-                    Хямдрал дуусах хугацаа: {saleEndDate}
-                  </p>
-                </div>
+              {onSale ? (
+                saleEndDate ? (
+                  <div>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Хямдрал дуусах хугацаа: {saleEndDate}
+                    </p>
+                  </div>
+                ) : null
+              ) : (
+                <p className="text-xl font-bold mb-2"></p>
               )}
+
               <p className="text-sm text-gray-500 mb-4">Япон үйлдвэрлэл</p>
               <p className="text-gray-700 mb-4">
                 Үлдсэн тоо: <span className="font-medium">{quantity}</span>
@@ -270,41 +253,40 @@ export default function Page() {
         </div>
 
         {/* Бусад цагнууд */}
-       {/* Бусад цагнууд */}
-<div className="mt-12">
-  <h2 className="text-2xl font-bold text-gray-800 mb-4">Өөр цагнуудыг үзэх</h2>
-  <div className="flex space-x-4 overflow-x-auto pb-4">
-    {watches
-      .filter((e) => e.id !== productId)  // Өөр цагнуудыг идэвхтэй цагнаас ялгаж шүүх
-      .map((e) => {
-        const watchDiscountedPrice = e.onSale
-          ? Math.floor(e.price * (1 - e.discountPercent / 100) - 1)
-          : Math.floor(e.price - 1);
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Өөр цагнуудыг үзэх</h2>
+          <div className="flex space-x-4 overflow-x-auto pb-4">
+            {watches
+              .filter((e) => e.id !== productId)
+              .map((e) => {
+                const watchDiscountedPrice = e.onSale
+                  ? Math.floor(e.price * (1 - e.discountPercent / 100) - 1)
+                  : Math.floor(e.price - 1);
 
-        return (
-          <div
-            key={e.id}
-            className="bg-white shadow-md rounded-3xl p-4 cursor-pointer flex-shrink-0 w-64 sm:w-72 md:w-80 transform transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-xl"
-            onClick={() => handleClick(e.id)}
-          >
-            <div className="relative rounded-2xl overflow-hidden">
-              <img
-                className="h-48 w-full object-cover rounded-2xl"
-                src={e.image}
-                alt={`${e.brand} цаг`}
-              />
-            </div>
-            <div className="mt-4 flex justify-between items-center">
-              <div>
-                <p className="text-lg font-semibold text-gray-900">{e.brand}</p>
-                <p className="text-md text-gray-800">₮{watchDiscountedPrice},000</p>
-              </div>
-            </div>
+                return (
+                  <div
+                    key={e.id}
+                    className="bg-white shadow-md rounded-3xl p-4 cursor-pointer flex-shrink-0 w-64 sm:w-72 md:w-80 transform transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-xl"
+                    onClick={() => handleClick(e.id)}
+                  >
+                    <div className="relative rounded-2xl overflow-hidden">
+                      <img
+                        className="h-48 w-full object-cover rounded-2xl"
+                        src={e.image}
+                        alt={`${e.brand} цаг`}
+                      />
+                    </div>
+                    <div className="mt-4 flex justify-between items-center">
+                      <div>
+                        <p className="text-lg font-semibold text-gray-900">{e.brand}</p>
+                        <p className="text-md text-gray-800">₮{watchDiscountedPrice},000</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
-        );
-      })}
-  </div>
-</div>
+        </div>
 
       </div>
       <Footer />
